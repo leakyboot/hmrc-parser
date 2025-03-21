@@ -1,0 +1,25 @@
+{
+    "document_type": "P60",
+    "content": {
+        "tax_year": "2023",
+        "employee": {
+            "name": "John Smith",
+            "ni_number": "AB123456C"
+        },
+        "employer": {
+            "name": "ACME Corporation Ltd",
+            "paye_reference": "123/AB456"
+        },
+        "financial": {
+            "total_pay": "45000.00",
+            "tax_paid": "9000.00",
+            "ni_contributions": "4500.00"
+        }
+    },
+    "metadata": {
+        "created_at": "2025-03-21T09:49:51Z",
+        "format": "PDF",
+        "ocr_engine": "tesseract",
+        "version": "1.0"
+    }
+}

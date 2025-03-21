@@ -1,0 +1,37 @@
+{
+    "id": "d4e5f6a7-b8c9-4d2e-a3f4-g5h6i7j8k9l0",
+    "name": "UK Tax Parser Test Environment",
+    "values": [
+        {
+            "key": "base_url",
+            "value": "http://localhost:8000",
+            "type": "string",
+            "enabled": true
+        },
+        {
+            "key": "username",
+            "value": "testuser",
+            "type": "string",
+            "enabled": true
+        },
+        {
+            "key": "password",
+            "value": "testpass",
+            "type": "string",
+            "enabled": true
+        },
+        {
+            "key": "access_token",
+            "value": "",
+            "type": "string",
+            "enabled": true
+        },
+        {
+            "key": "document_id",
+            "value": "",
+            "type": "string",
+            "enabled": true
+        }
+    ],
+    "_postman_variable_scope": "environment"
+}

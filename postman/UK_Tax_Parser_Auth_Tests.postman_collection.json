@@ -1,0 +1,161 @@
+{
+    "info": {
+        "_postman_id": "a5c8d9e2-b4f6-4c1a-9d8e-7f6c5b4a3c2d",
+        "name": "UK Tax Parser Auth Tests",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Valid Login",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "eval(pm.globals.get('authTests')).testValidLogin();"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/x-www-form-urlencoded"
+                    }
+                ],
+                "body": {
+                    "mode": "urlencoded",
+                    "urlencoded": [
+                        {
+                            "key": "username",
+                            "value": "{{username}}",
+                            "type": "text"
+                        },
+                        {
+                            "key": "password",
+                            "value": "{{password}}",
+                            "type": "text"
+                        }
+                    ]
+                },
+                "url": {
+                    "raw": "{{base_url}}/token",
+                    "host": ["{{base_url}}"],
+                    "path": ["token"]
+                }
+            }
+        },
+        {
+            "name": "Invalid Login",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "eval(pm.globals.get('authTests')).testInvalidLogin();"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/x-www-form-urlencoded"
+                    }
+                ],
+                "body": {
+                    "mode": "urlencoded",
+                    "urlencoded": [
+                        {
+                            "key": "username",
+                            "value": "invalid_user",
+                            "type": "text"
+                        },
+                        {
+                            "key": "password",
+                            "value": "invalid_pass",
+                            "type": "text"
+                        }
+                    ]
+                },
+                "url": {
+                    "raw": "{{base_url}}/token",
+                    "host": ["{{base_url}}"],
+                    "path": ["token"]
+                }
+            }
+        },
+        {
+            "name": "Protected Endpoint Without Token",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "eval(pm.globals.get('authTests')).testMissingToken();"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{base_url}}/data/123",
+                    "host": ["{{base_url}}"],
+                    "path": ["data", "123"]
+                }
+            }
+        },
+        {
+            "name": "Token Expiration Check",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "eval(pm.globals.get('authTests')).testTokenExpiration();"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/x-www-form-urlencoded"
+                    }
+                ],
+                "body": {
+                    "mode": "urlencoded",
+                    "urlencoded": [
+                        {
+                            "key": "username",
+                            "value": "{{username}}",
+                            "type": "text"
+                        },
+                        {
+                            "key": "password",
+                            "value": "{{password}}",
+                            "type": "text"
+                        }
+                    ]
+                },
+                "url": {
+                    "raw": "{{base_url}}/token",
+                    "host": ["{{base_url}}"],
+                    "path": ["token"]
+                }
+            }
+        }
+    ]
+}

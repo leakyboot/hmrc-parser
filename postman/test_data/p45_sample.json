@@ -1,0 +1,29 @@
+{
+    "document_type": "P45",
+    "content": {
+        "tax_year": "2023",
+        "employee": {
+            "name": "Jane Doe",
+            "ni_number": "XY987654A"
+        },
+        "employer": {
+            "name": "Tech Solutions Ltd",
+            "paye_reference": "789/XY123"
+        },
+        "financial": {
+            "total_pay": "52000.00",
+            "tax_paid": "10400.00",
+            "ni_contributions": "5200.00"
+        },
+        "dates": {
+            "leaving_date": "2025-02-28",
+            "final_payment": "2025-02-28"
+        }
+    },
+    "metadata": {
+        "created_at": "2025-03-21T09:49:51Z",
+        "format": "PDF",
+        "ocr_engine": "tesseract",
+        "version": "1.0"
+    }
+}

@@ -1,0 +1,2144 @@
+{
+  "collection": {
+    "_": {
+      "postman_id": "a5c8d9e2-b4f6-4c1a-9d8e-7f6c5b4a3c2d"
+    },
+    "item": [
+      {
+        "id": "5388a4e8-58c7-490d-a84b-7d698567c19d",
+        "name": "Valid Login",
+        "request": {
+          "url": {
+            "path": [
+              "token"
+            ],
+            "host": [
+              "{{base_url}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/x-www-form-urlencoded"
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "urlencoded",
+            "urlencoded": [
+              {
+                "key": "username",
+                "value": "{{username}}"
+              },
+              {
+                "key": "password",
+                "value": "{{password}}"
+              }
+            ]
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "36ec75ca-f1fd-4fe4-b8ee-7063121e5c1a",
+              "type": "text/javascript",
+              "exec": [
+                "eval(pm.globals.get('authTests')).testValidLogin();"
+              ],
+              "_lastExecutionId": "7eec7ddc-e6c8-47c9-81c0-e21cee9c9c2d"
+            }
+          }
+        ]
+      },
+      {
+        "id": "648d537f-95af-4e7a-89cf-18e666111057",
+        "name": "Invalid Login",
+        "request": {
+          "url": {
+            "path": [
+              "token"
+            ],
+            "host": [
+              "{{base_url}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/x-www-form-urlencoded"
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "urlencoded",
+            "urlencoded": [
+              {
+                "key": "username",
+                "value": "invalid_user"
+              },
+              {
+                "key": "password",
+                "value": "invalid_pass"
+              }
+            ]
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "654d0438-57c3-4e1d-8ee6-8eaad1c30588",
+              "type": "text/javascript",
+              "exec": [
+                "eval(pm.globals.get('authTests')).testInvalidLogin();"
+              ],
+              "_lastExecutionId": "4dbc5487-aa44-490a-acec-da8154c0d524"
+            }
+          }
+        ]
+      },
+      {
+        "id": "6aa4332e-a3c1-4cae-ab64-ea2b42c81c1c",
+        "name": "Protected Endpoint Without Token",
+        "request": {
+          "url": {
+            "path": [
+              "data",
+              "123"
+            ],
+            "host": [
+              "{{base_url}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "method": "GET"
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "ff4230d9-44ed-4219-8190-54c93ece6e73",
+              "type": "text/javascript",
+              "exec": [
+                "eval(pm.globals.get('authTests')).testMissingToken();"
+              ],
+              "_lastExecutionId": "16a22936-1cc4-4a12-95fa-edd839e5b87b"
+            }
+          }
+        ]
+      },
+      {
+        "id": "d9ed4597-933a-48f6-be00-a0b7f83f8a41",
+        "name": "Token Expiration Check",
+        "request": {
+          "url": {
+            "path": [
+              "token"
+            ],
+            "host": [
+              "{{base_url}}"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/x-www-form-urlencoded"
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "urlencoded",
+            "urlencoded": [
+              {
+                "key": "username",
+                "value": "{{username}}"
+              },
+              {
+                "key": "password",
+                "value": "{{password}}"
+              }
+            ]
+          }
+        },
+        "response": [],
+        "event": [
+          {
+            "listen": "test",
+            "script": {
+              "id": "bf07ce3a-6b27-4f18-9de0-523f7b63a4d3",
+              "type": "text/javascript",
+              "exec": [
+                "eval(pm.globals.get('authTests')).testTokenExpiration();"
+              ],
+              "_lastExecutionId": "9752b51c-acbe-4b2f-8e94-f182c5162626"
+            }
+          }
+        ]
+      }
+    ],
+    "event": [],
+    "variable": [],
+    "info": {
+      "_postman_id": "a5c8d9e2-b4f6-4c1a-9d8e-7f6c5b4a3c2d",
+      "name": "UK Tax Parser Auth Tests",
+      "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    }
+  },
+  "environment": {
+    "_": {
+      "postman_variable_scope": "environment"
+    },
+    "id": "d4e5f6a7-b8c9-4d2e-a3f4-g5h6i7j8k9l0",
+    "name": "UK Tax Parser Test Environment",
+    "values": [
+      {
+        "type": "string",
+        "value": "http://localhost:8000",
+        "key": "base_url"
+      },
+      {
+        "type": "string",
+        "value": "testuser",
+        "key": "username"
+      },
+      {
+        "type": "string",
+        "value": "testpass",
+        "key": "password"
+      },
+      {
+        "type": "string",
+        "value": "",
+        "key": "access_token"
+      },
+      {
+        "type": "string",
+        "value": "",
+        "key": "document_id"
+      }
+    ]
+  },
+  "globals": {
+    "id": "515c6fa2-7ea5-4586-9180-b4044d33d698",
+    "values": []
+  },
+  "run": {
+    "stats": {
+      "iterations": {
+        "total": 1,
+        "pending": 0,
+        "failed": 0
+      },
+      "items": {
+        "total": 4,
+        "pending": 0,
+        "failed": 0
+      },
+      "scripts": {
+        "total": 4,
+        "pending": 0,
+        "failed": 4
+      },
+      "prerequests": {
+        "total": 4,
+        "pending": 0,
+        "failed": 0
+      },
+      "requests": {
+        "total": 4,
+        "pending": 0,
+        "failed": 0
+      },
+      "tests": {
+        "total": 4,
+        "pending": 0,
+        "failed": 0
+      },
+      "assertions": {
+        "total": 0,
+        "pending": 0,
+        "failed": 0
+      },
+      "testScripts": {
+        "total": 4,
+        "pending": 0,
+        "failed": 4
+      },
+      "prerequestScripts": {
+        "total": 0,
+        "pending": 0,
+        "failed": 0
+      }
+    },
+    "timings": {
+      "responseAverage": 103,
+      "responseMin": 21,
+      "responseMax": 315,
+      "responseSd": 122.59690045021532,
+      "dnsAverage": 0,
+      "dnsMin": 0,
+      "dnsMax": 0,
+      "dnsSd": 0,
+      "firstByteAverage": 0,
+      "firstByteMin": 0,
+      "firstByteMax": 0,
+      "firstByteSd": 0,
+      "started": 1742554320367,
+      "completed": 1742554322224
+    },
+    "executions": [
+      {
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 4,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "5031ac67-3c64-4f8a-8665-ce1ff658122e",
+          "httpRequestId": "73d5bb45-d2b3-434a-a53b-17271ce8320d"
+        },
+        "item": {
+          "id": "5388a4e8-58c7-490d-a84b-7d698567c19d",
+          "name": "Valid Login",
+          "request": {
+            "url": {
+              "path": [
+                "token"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "username",
+                  "value": "{{username}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "36ec75ca-f1fd-4fe4-b8ee-7063121e5c1a",
+                "type": "text/javascript",
+                "exec": [
+                  "eval(pm.globals.get('authTests')).testValidLogin();"
+                ],
+                "_lastExecutionId": "7eec7ddc-e6c8-47c9-81c0-e21cee9c9c2d"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "8000",
+            "path": [
+              "token"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/x-www-form-urlencoded"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "15c24378-aa60-4991-9a59-c8791b7e0d15",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:8000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "35",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "urlencoded",
+            "urlencoded": [
+              {
+                "key": "username",
+                "value": "testuser"
+              },
+              {
+                "key": "password",
+                "value": "testpass"
+              }
+            ]
+          }
+        },
+        "response": {
+          "id": "1008e4e9-0f20-4199-913c-0b452136c706",
+          "status": "Not Found",
+          "code": 404,
+          "header": [
+            {
+              "key": "date",
+              "value": "Fri, 21 Mar 2025 10:52:00 GMT"
+            },
+            {
+              "key": "server",
+              "value": "uvicorn"
+            },
+            {
+              "key": "content-length",
+              "value": "22"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              100,
+              101,
+              116,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              78,
+              111,
+              116,
+              32,
+              70,
+              111,
+              117,
+              110,
+              100,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 315,
+          "responseSize": 22
+        },
+        "id": "5388a4e8-58c7-490d-a84b-7d698567c19d",
+        "testScript": [
+          {
+            "error": {
+              "type": "Error",
+              "name": "TypeError",
+              "message": "Cannot read properties of undefined (reading 'testValidLogin')",
+              "checksum": "b99af7f761c613b63c640b5c7f1a2b98",
+              "id": "5cc7dea2-0a46-4c0a-b176-f3675afec354",
+              "timestamp": 1742554321261,
+              "stacktrace": []
+            }
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "f9af5f33-34c2-444e-9ea9-14d26a93bb3c",
+          "length": 4,
+          "cycles": 1,
+          "position": 1,
+          "iteration": 0,
+          "httpRequestId": "aa75049b-d58e-499a-994b-842274a2c6ac"
+        },
+        "item": {
+          "id": "648d537f-95af-4e7a-89cf-18e666111057",
+          "name": "Invalid Login",
+          "request": {
+            "url": {
+              "path": [
+                "token"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "username",
+                  "value": "invalid_user"
+                },
+                {
+                  "key": "password",
+                  "value": "invalid_pass"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "654d0438-57c3-4e1d-8ee6-8eaad1c30588",
+                "type": "text/javascript",
+                "exec": [
+                  "eval(pm.globals.get('authTests')).testInvalidLogin();"
+                ],
+                "_lastExecutionId": "4dbc5487-aa44-490a-acec-da8154c0d524"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "8000",
+            "path": [
+              "token"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/x-www-form-urlencoded"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "b9ced75d-1d9a-45c1-a3e4-551886e65078",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:8000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "43",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "urlencoded",
+            "urlencoded": [
+              {
+                "key": "username",
+                "value": "invalid_user"
+              },
+              {
+                "key": "password",
+                "value": "invalid_pass"
+              }
+            ]
+          }
+        },
+        "response": {
+          "id": "41386890-6d8d-440f-ba9f-ca19af3c24dd",
+          "status": "Not Found",
+          "code": 404,
+          "header": [
+            {
+              "key": "date",
+              "value": "Fri, 21 Mar 2025 10:52:00 GMT"
+            },
+            {
+              "key": "server",
+              "value": "uvicorn"
+            },
+            {
+              "key": "content-length",
+              "value": "22"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              100,
+              101,
+              116,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              78,
+              111,
+              116,
+              32,
+              70,
+              111,
+              117,
+              110,
+              100,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 21,
+          "responseSize": 22
+        },
+        "id": "648d537f-95af-4e7a-89cf-18e666111057",
+        "testScript": [
+          {
+            "error": {
+              "type": "Error",
+              "name": "TypeError",
+              "message": "Cannot read properties of undefined (reading 'testInvalidLogin')",
+              "checksum": "c107da773f4da0609c5bce15a9fa58fc",
+              "id": "33ec175f-dcf7-462b-b23c-a3f07f47be0a",
+              "timestamp": 1742554321405,
+              "stacktrace": []
+            }
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "d2fcfa0a-5c0b-4986-a63a-101df76701bb",
+          "length": 4,
+          "cycles": 1,
+          "position": 2,
+          "iteration": 0,
+          "httpRequestId": "3e723c83-1ce3-45ea-be8b-e44cca55a488"
+        },
+        "item": {
+          "id": "6aa4332e-a3c1-4cae-ab64-ea2b42c81c1c",
+          "name": "Protected Endpoint Without Token",
+          "request": {
+            "url": {
+              "path": [
+                "data",
+                "123"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "ff4230d9-44ed-4219-8190-54c93ece6e73",
+                "type": "text/javascript",
+                "exec": [
+                  "eval(pm.globals.get('authTests')).testMissingToken();"
+                ],
+                "_lastExecutionId": "16a22936-1cc4-4a12-95fa-edd839e5b87b"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "8000",
+            "path": [
+              "data",
+              "123"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "08382d1a-1579-44b7-abac-7b65b2f6f845",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:8000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            }
+          ],
+          "method": "GET"
+        },
+        "response": {
+          "id": "4b2c30fe-16d6-4949-8fe0-26c462e5a19c",
+          "status": "Unauthorized",
+          "code": 401,
+          "header": [
+            {
+              "key": "date",
+              "value": "Fri, 21 Mar 2025 10:52:00 GMT"
+            },
+            {
+              "key": "server",
+              "value": "uvicorn"
+            },
+            {
+              "key": "www-authenticate",
+              "value": "Bearer"
+            },
+            {
+              "key": "content-length",
+              "value": "30"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              100,
+              101,
+              116,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              78,
+              111,
+              116,
+              32,
+              97,
+              117,
+              116,
+              104,
+              101,
+              110,
+              116,
+              105,
+              99,
+              97,
+              116,
+              101,
+              100,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 39,
+          "responseSize": 30
+        },
+        "id": "6aa4332e-a3c1-4cae-ab64-ea2b42c81c1c",
+        "testScript": [
+          {
+            "error": {
+              "type": "Error",
+              "name": "TypeError",
+              "message": "Cannot read properties of undefined (reading 'testMissingToken')",
+              "checksum": "6125ab2d86633564a6753a53089e00b6",
+              "id": "b6fe4e7b-9bb7-44c7-886a-b4a28b190109",
+              "timestamp": 1742554321578,
+              "stacktrace": []
+            }
+          }
+        ]
+      },
+      {
+        "cursor": {
+          "ref": "df3e5b21-6111-4e68-8276-cd524d6cade4",
+          "length": 4,
+          "cycles": 1,
+          "position": 3,
+          "iteration": 0,
+          "httpRequestId": "3a3b5ce0-5ca6-4859-a6ac-bee636e3f66a"
+        },
+        "item": {
+          "id": "d9ed4597-933a-48f6-be00-a0b7f83f8a41",
+          "name": "Token Expiration Check",
+          "request": {
+            "url": {
+              "path": [
+                "token"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "username",
+                  "value": "{{username}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "bf07ce3a-6b27-4f18-9de0-523f7b63a4d3",
+                "type": "text/javascript",
+                "exec": [
+                  "eval(pm.globals.get('authTests')).testTokenExpiration();"
+                ],
+                "_lastExecutionId": "9752b51c-acbe-4b2f-8e94-f182c5162626"
+              }
+            }
+          ]
+        },
+        "request": {
+          "url": {
+            "protocol": "http",
+            "port": "8000",
+            "path": [
+              "token"
+            ],
+            "host": [
+              "localhost"
+            ],
+            "query": [],
+            "variable": []
+          },
+          "header": [
+            {
+              "key": "Content-Type",
+              "value": "application/x-www-form-urlencoded"
+            },
+            {
+              "key": "User-Agent",
+              "value": "PostmanRuntime/7.39.1",
+              "system": true
+            },
+            {
+              "key": "Accept",
+              "value": "*/*",
+              "system": true
+            },
+            {
+              "key": "Cache-Control",
+              "value": "no-cache",
+              "system": true
+            },
+            {
+              "key": "Postman-Token",
+              "value": "582f5de3-137e-4867-be0f-513105c548f6",
+              "system": true
+            },
+            {
+              "key": "Host",
+              "value": "localhost:8000",
+              "system": true
+            },
+            {
+              "key": "Accept-Encoding",
+              "value": "gzip, deflate, br",
+              "system": true
+            },
+            {
+              "key": "Connection",
+              "value": "keep-alive",
+              "system": true
+            },
+            {
+              "key": "Content-Length",
+              "value": "35",
+              "system": true
+            }
+          ],
+          "method": "POST",
+          "body": {
+            "mode": "urlencoded",
+            "urlencoded": [
+              {
+                "key": "username",
+                "value": "testuser"
+              },
+              {
+                "key": "password",
+                "value": "testpass"
+              }
+            ]
+          }
+        },
+        "response": {
+          "id": "c0a0c164-7ef2-4d24-a8f6-8a0603b57886",
+          "status": "Not Found",
+          "code": 404,
+          "header": [
+            {
+              "key": "date",
+              "value": "Fri, 21 Mar 2025 10:52:00 GMT"
+            },
+            {
+              "key": "server",
+              "value": "uvicorn"
+            },
+            {
+              "key": "content-length",
+              "value": "22"
+            },
+            {
+              "key": "content-type",
+              "value": "application/json"
+            }
+          ],
+          "stream": {
+            "type": "Buffer",
+            "data": [
+              123,
+              34,
+              100,
+              101,
+              116,
+              97,
+              105,
+              108,
+              34,
+              58,
+              34,
+              78,
+              111,
+              116,
+              32,
+              70,
+              111,
+              117,
+              110,
+              100,
+              34,
+              125
+            ]
+          },
+          "cookie": [],
+          "responseTime": 37,
+          "responseSize": 22
+        },
+        "id": "d9ed4597-933a-48f6-be00-a0b7f83f8a41",
+        "testScript": [
+          {
+            "error": {
+              "type": "Error",
+              "name": "TypeError",
+              "message": "Cannot read properties of undefined (reading 'testTokenExpiration')",
+              "checksum": "a8ffc95572f84a2458d3c41f745933cc",
+              "id": "63733218-0913-43b4-b237-f62a774e9b23",
+              "timestamp": 1742554321740,
+              "stacktrace": []
+            }
+          }
+        ]
+      }
+    ],
+    "transfers": {
+      "responseTotal": 96
+    },
+    "failures": [
+      {
+        "error": {
+          "type": "Error",
+          "name": "TypeError",
+          "message": "Cannot read properties of undefined (reading 'testValidLogin')",
+          "checksum": "b99af7f761c613b63c640b5c7f1a2b98",
+          "id": "5cc7dea2-0a46-4c0a-b176-f3675afec354",
+          "timestamp": 1742554321261,
+          "stacktrace": []
+        },
+        "at": "test-script",
+        "source": {
+          "id": "5388a4e8-58c7-490d-a84b-7d698567c19d",
+          "name": "Valid Login",
+          "request": {
+            "url": {
+              "path": [
+                "token"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "username",
+                  "value": "{{username}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "36ec75ca-f1fd-4fe4-b8ee-7063121e5c1a",
+                "type": "text/javascript",
+                "exec": [
+                  "eval(pm.globals.get('authTests')).testValidLogin();"
+                ],
+                "_lastExecutionId": "7eec7ddc-e6c8-47c9-81c0-e21cee9c9c2d"
+              }
+            }
+          ]
+        },
+        "parent": {
+          "_": {
+            "postman_id": "a5c8d9e2-b4f6-4c1a-9d8e-7f6c5b4a3c2d"
+          },
+          "item": [
+            {
+              "id": "5388a4e8-58c7-490d-a84b-7d698567c19d",
+              "name": "Valid Login",
+              "request": {
+                "url": {
+                  "path": [
+                    "token"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "username",
+                      "value": "{{username}}"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{password}}"
+                    }
+                  ]
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "36ec75ca-f1fd-4fe4-b8ee-7063121e5c1a",
+                    "type": "text/javascript",
+                    "exec": [
+                      "eval(pm.globals.get('authTests')).testValidLogin();"
+                    ],
+                    "_lastExecutionId": "7eec7ddc-e6c8-47c9-81c0-e21cee9c9c2d"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "648d537f-95af-4e7a-89cf-18e666111057",
+              "name": "Invalid Login",
+              "request": {
+                "url": {
+                  "path": [
+                    "token"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "username",
+                      "value": "invalid_user"
+                    },
+                    {
+                      "key": "password",
+                      "value": "invalid_pass"
+                    }
+                  ]
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "654d0438-57c3-4e1d-8ee6-8eaad1c30588",
+                    "type": "text/javascript",
+                    "exec": [
+                      "eval(pm.globals.get('authTests')).testInvalidLogin();"
+                    ],
+                    "_lastExecutionId": "4dbc5487-aa44-490a-acec-da8154c0d524"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "6aa4332e-a3c1-4cae-ab64-ea2b42c81c1c",
+              "name": "Protected Endpoint Without Token",
+              "request": {
+                "url": {
+                  "path": [
+                    "data",
+                    "123"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET"
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "ff4230d9-44ed-4219-8190-54c93ece6e73",
+                    "type": "text/javascript",
+                    "exec": [
+                      "eval(pm.globals.get('authTests')).testMissingToken();"
+                    ],
+                    "_lastExecutionId": "16a22936-1cc4-4a12-95fa-edd839e5b87b"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "d9ed4597-933a-48f6-be00-a0b7f83f8a41",
+              "name": "Token Expiration Check",
+              "request": {
+                "url": {
+                  "path": [
+                    "token"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "username",
+                      "value": "{{username}}"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{password}}"
+                    }
+                  ]
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "bf07ce3a-6b27-4f18-9de0-523f7b63a4d3",
+                    "type": "text/javascript",
+                    "exec": [
+                      "eval(pm.globals.get('authTests')).testTokenExpiration();"
+                    ],
+                    "_lastExecutionId": "9752b51c-acbe-4b2f-8e94-f182c5162626"
+                  }
+                }
+              ]
+            }
+          ],
+          "event": [],
+          "variable": [],
+          "info": {
+            "_postman_id": "a5c8d9e2-b4f6-4c1a-9d8e-7f6c5b4a3c2d",
+            "name": "UK Tax Parser Auth Tests",
+            "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+          }
+        },
+        "cursor": {
+          "position": 0,
+          "iteration": 0,
+          "length": 4,
+          "cycles": 1,
+          "empty": false,
+          "eof": false,
+          "bof": true,
+          "cr": false,
+          "ref": "5031ac67-3c64-4f8a-8665-ce1ff658122e",
+          "httpRequestId": "73d5bb45-d2b3-434a-a53b-17271ce8320d",
+          "scriptId": "36ec75ca-f1fd-4fe4-b8ee-7063121e5c1a"
+        }
+      },
+      {
+        "error": {
+          "type": "Error",
+          "name": "TypeError",
+          "message": "Cannot read properties of undefined (reading 'testInvalidLogin')",
+          "checksum": "c107da773f4da0609c5bce15a9fa58fc",
+          "id": "33ec175f-dcf7-462b-b23c-a3f07f47be0a",
+          "timestamp": 1742554321405,
+          "stacktrace": []
+        },
+        "at": "test-script",
+        "source": {
+          "id": "648d537f-95af-4e7a-89cf-18e666111057",
+          "name": "Invalid Login",
+          "request": {
+            "url": {
+              "path": [
+                "token"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "username",
+                  "value": "invalid_user"
+                },
+                {
+                  "key": "password",
+                  "value": "invalid_pass"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "654d0438-57c3-4e1d-8ee6-8eaad1c30588",
+                "type": "text/javascript",
+                "exec": [
+                  "eval(pm.globals.get('authTests')).testInvalidLogin();"
+                ],
+                "_lastExecutionId": "4dbc5487-aa44-490a-acec-da8154c0d524"
+              }
+            }
+          ]
+        },
+        "parent": {
+          "_": {
+            "postman_id": "a5c8d9e2-b4f6-4c1a-9d8e-7f6c5b4a3c2d"
+          },
+          "item": [
+            {
+              "id": "5388a4e8-58c7-490d-a84b-7d698567c19d",
+              "name": "Valid Login",
+              "request": {
+                "url": {
+                  "path": [
+                    "token"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "username",
+                      "value": "{{username}}"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{password}}"
+                    }
+                  ]
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "36ec75ca-f1fd-4fe4-b8ee-7063121e5c1a",
+                    "type": "text/javascript",
+                    "exec": [
+                      "eval(pm.globals.get('authTests')).testValidLogin();"
+                    ],
+                    "_lastExecutionId": "7eec7ddc-e6c8-47c9-81c0-e21cee9c9c2d"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "648d537f-95af-4e7a-89cf-18e666111057",
+              "name": "Invalid Login",
+              "request": {
+                "url": {
+                  "path": [
+                    "token"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "username",
+                      "value": "invalid_user"
+                    },
+                    {
+                      "key": "password",
+                      "value": "invalid_pass"
+                    }
+                  ]
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "654d0438-57c3-4e1d-8ee6-8eaad1c30588",
+                    "type": "text/javascript",
+                    "exec": [
+                      "eval(pm.globals.get('authTests')).testInvalidLogin();"
+                    ],
+                    "_lastExecutionId": "4dbc5487-aa44-490a-acec-da8154c0d524"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "6aa4332e-a3c1-4cae-ab64-ea2b42c81c1c",
+              "name": "Protected Endpoint Without Token",
+              "request": {
+                "url": {
+                  "path": [
+                    "data",
+                    "123"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET"
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "ff4230d9-44ed-4219-8190-54c93ece6e73",
+                    "type": "text/javascript",
+                    "exec": [
+                      "eval(pm.globals.get('authTests')).testMissingToken();"
+                    ],
+                    "_lastExecutionId": "16a22936-1cc4-4a12-95fa-edd839e5b87b"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "d9ed4597-933a-48f6-be00-a0b7f83f8a41",
+              "name": "Token Expiration Check",
+              "request": {
+                "url": {
+                  "path": [
+                    "token"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "username",
+                      "value": "{{username}}"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{password}}"
+                    }
+                  ]
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "bf07ce3a-6b27-4f18-9de0-523f7b63a4d3",
+                    "type": "text/javascript",
+                    "exec": [
+                      "eval(pm.globals.get('authTests')).testTokenExpiration();"
+                    ],
+                    "_lastExecutionId": "9752b51c-acbe-4b2f-8e94-f182c5162626"
+                  }
+                }
+              ]
+            }
+          ],
+          "event": [],
+          "variable": [],
+          "info": {
+            "_postman_id": "a5c8d9e2-b4f6-4c1a-9d8e-7f6c5b4a3c2d",
+            "name": "UK Tax Parser Auth Tests",
+            "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+          }
+        },
+        "cursor": {
+          "ref": "f9af5f33-34c2-444e-9ea9-14d26a93bb3c",
+          "length": 4,
+          "cycles": 1,
+          "position": 1,
+          "iteration": 0,
+          "httpRequestId": "aa75049b-d58e-499a-994b-842274a2c6ac",
+          "scriptId": "654d0438-57c3-4e1d-8ee6-8eaad1c30588"
+        }
+      },
+      {
+        "error": {
+          "type": "Error",
+          "name": "TypeError",
+          "message": "Cannot read properties of undefined (reading 'testMissingToken')",
+          "checksum": "6125ab2d86633564a6753a53089e00b6",
+          "id": "b6fe4e7b-9bb7-44c7-886a-b4a28b190109",
+          "timestamp": 1742554321578,
+          "stacktrace": []
+        },
+        "at": "test-script",
+        "source": {
+          "id": "6aa4332e-a3c1-4cae-ab64-ea2b42c81c1c",
+          "name": "Protected Endpoint Without Token",
+          "request": {
+            "url": {
+              "path": [
+                "data",
+                "123"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "method": "GET"
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "ff4230d9-44ed-4219-8190-54c93ece6e73",
+                "type": "text/javascript",
+                "exec": [
+                  "eval(pm.globals.get('authTests')).testMissingToken();"
+                ],
+                "_lastExecutionId": "16a22936-1cc4-4a12-95fa-edd839e5b87b"
+              }
+            }
+          ]
+        },
+        "parent": {
+          "_": {
+            "postman_id": "a5c8d9e2-b4f6-4c1a-9d8e-7f6c5b4a3c2d"
+          },
+          "item": [
+            {
+              "id": "5388a4e8-58c7-490d-a84b-7d698567c19d",
+              "name": "Valid Login",
+              "request": {
+                "url": {
+                  "path": [
+                    "token"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "username",
+                      "value": "{{username}}"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{password}}"
+                    }
+                  ]
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "36ec75ca-f1fd-4fe4-b8ee-7063121e5c1a",
+                    "type": "text/javascript",
+                    "exec": [
+                      "eval(pm.globals.get('authTests')).testValidLogin();"
+                    ],
+                    "_lastExecutionId": "7eec7ddc-e6c8-47c9-81c0-e21cee9c9c2d"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "648d537f-95af-4e7a-89cf-18e666111057",
+              "name": "Invalid Login",
+              "request": {
+                "url": {
+                  "path": [
+                    "token"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "username",
+                      "value": "invalid_user"
+                    },
+                    {
+                      "key": "password",
+                      "value": "invalid_pass"
+                    }
+                  ]
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "654d0438-57c3-4e1d-8ee6-8eaad1c30588",
+                    "type": "text/javascript",
+                    "exec": [
+                      "eval(pm.globals.get('authTests')).testInvalidLogin();"
+                    ],
+                    "_lastExecutionId": "4dbc5487-aa44-490a-acec-da8154c0d524"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "6aa4332e-a3c1-4cae-ab64-ea2b42c81c1c",
+              "name": "Protected Endpoint Without Token",
+              "request": {
+                "url": {
+                  "path": [
+                    "data",
+                    "123"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET"
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "ff4230d9-44ed-4219-8190-54c93ece6e73",
+                    "type": "text/javascript",
+                    "exec": [
+                      "eval(pm.globals.get('authTests')).testMissingToken();"
+                    ],
+                    "_lastExecutionId": "16a22936-1cc4-4a12-95fa-edd839e5b87b"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "d9ed4597-933a-48f6-be00-a0b7f83f8a41",
+              "name": "Token Expiration Check",
+              "request": {
+                "url": {
+                  "path": [
+                    "token"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "username",
+                      "value": "{{username}}"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{password}}"
+                    }
+                  ]
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "bf07ce3a-6b27-4f18-9de0-523f7b63a4d3",
+                    "type": "text/javascript",
+                    "exec": [
+                      "eval(pm.globals.get('authTests')).testTokenExpiration();"
+                    ],
+                    "_lastExecutionId": "9752b51c-acbe-4b2f-8e94-f182c5162626"
+                  }
+                }
+              ]
+            }
+          ],
+          "event": [],
+          "variable": [],
+          "info": {
+            "_postman_id": "a5c8d9e2-b4f6-4c1a-9d8e-7f6c5b4a3c2d",
+            "name": "UK Tax Parser Auth Tests",
+            "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+          }
+        },
+        "cursor": {
+          "ref": "d2fcfa0a-5c0b-4986-a63a-101df76701bb",
+          "length": 4,
+          "cycles": 1,
+          "position": 2,
+          "iteration": 0,
+          "httpRequestId": "3e723c83-1ce3-45ea-be8b-e44cca55a488",
+          "scriptId": "ff4230d9-44ed-4219-8190-54c93ece6e73"
+        }
+      },
+      {
+        "error": {
+          "type": "Error",
+          "name": "TypeError",
+          "message": "Cannot read properties of undefined (reading 'testTokenExpiration')",
+          "checksum": "a8ffc95572f84a2458d3c41f745933cc",
+          "id": "63733218-0913-43b4-b237-f62a774e9b23",
+          "timestamp": 1742554321740,
+          "stacktrace": []
+        },
+        "at": "test-script",
+        "source": {
+          "id": "d9ed4597-933a-48f6-be00-a0b7f83f8a41",
+          "name": "Token Expiration Check",
+          "request": {
+            "url": {
+              "path": [
+                "token"
+              ],
+              "host": [
+                "{{base_url}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              }
+            ],
+            "method": "POST",
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "key": "username",
+                  "value": "{{username}}"
+                },
+                {
+                  "key": "password",
+                  "value": "{{password}}"
+                }
+              ]
+            }
+          },
+          "response": [],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "id": "bf07ce3a-6b27-4f18-9de0-523f7b63a4d3",
+                "type": "text/javascript",
+                "exec": [
+                  "eval(pm.globals.get('authTests')).testTokenExpiration();"
+                ],
+                "_lastExecutionId": "9752b51c-acbe-4b2f-8e94-f182c5162626"
+              }
+            }
+          ]
+        },
+        "parent": {
+          "_": {
+            "postman_id": "a5c8d9e2-b4f6-4c1a-9d8e-7f6c5b4a3c2d"
+          },
+          "item": [
+            {
+              "id": "5388a4e8-58c7-490d-a84b-7d698567c19d",
+              "name": "Valid Login",
+              "request": {
+                "url": {
+                  "path": [
+                    "token"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "username",
+                      "value": "{{username}}"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{password}}"
+                    }
+                  ]
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "36ec75ca-f1fd-4fe4-b8ee-7063121e5c1a",
+                    "type": "text/javascript",
+                    "exec": [
+                      "eval(pm.globals.get('authTests')).testValidLogin();"
+                    ],
+                    "_lastExecutionId": "7eec7ddc-e6c8-47c9-81c0-e21cee9c9c2d"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "648d537f-95af-4e7a-89cf-18e666111057",
+              "name": "Invalid Login",
+              "request": {
+                "url": {
+                  "path": [
+                    "token"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "username",
+                      "value": "invalid_user"
+                    },
+                    {
+                      "key": "password",
+                      "value": "invalid_pass"
+                    }
+                  ]
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "654d0438-57c3-4e1d-8ee6-8eaad1c30588",
+                    "type": "text/javascript",
+                    "exec": [
+                      "eval(pm.globals.get('authTests')).testInvalidLogin();"
+                    ],
+                    "_lastExecutionId": "4dbc5487-aa44-490a-acec-da8154c0d524"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "6aa4332e-a3c1-4cae-ab64-ea2b42c81c1c",
+              "name": "Protected Endpoint Without Token",
+              "request": {
+                "url": {
+                  "path": [
+                    "data",
+                    "123"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "method": "GET"
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "ff4230d9-44ed-4219-8190-54c93ece6e73",
+                    "type": "text/javascript",
+                    "exec": [
+                      "eval(pm.globals.get('authTests')).testMissingToken();"
+                    ],
+                    "_lastExecutionId": "16a22936-1cc4-4a12-95fa-edd839e5b87b"
+                  }
+                }
+              ]
+            },
+            {
+              "id": "d9ed4597-933a-48f6-be00-a0b7f83f8a41",
+              "name": "Token Expiration Check",
+              "request": {
+                "url": {
+                  "path": [
+                    "token"
+                  ],
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "key": "username",
+                      "value": "{{username}}"
+                    },
+                    {
+                      "key": "password",
+                      "value": "{{password}}"
+                    }
+                  ]
+                }
+              },
+              "response": [],
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "id": "bf07ce3a-6b27-4f18-9de0-523f7b63a4d3",
+                    "type": "text/javascript",
+                    "exec": [
+                      "eval(pm.globals.get('authTests')).testTokenExpiration();"
+                    ],
+                    "_lastExecutionId": "9752b51c-acbe-4b2f-8e94-f182c5162626"
+                  }
+                }
+              ]
+            }
+          ],
+          "event": [],
+          "variable": [],
+          "info": {
+            "_postman_id": "a5c8d9e2-b4f6-4c1a-9d8e-7f6c5b4a3c2d",
+            "name": "UK Tax Parser Auth Tests",
+            "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+          }
+        },
+        "cursor": {
+          "ref": "df3e5b21-6111-4e68-8276-cd524d6cade4",
+          "length": 4,
+          "cycles": 1,
+          "position": 3,
+          "iteration": 0,
+          "httpRequestId": "3a3b5ce0-5ca6-4859-a6ac-bee636e3f66a",
+          "scriptId": "bf07ce3a-6b27-4f18-9de0-523f7b63a4d3"
+        }
+      }
+    ],
+    "error": null
+  }
+}

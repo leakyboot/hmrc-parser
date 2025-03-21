@@ -1,0 +1,15 @@
+{
+    "values": [
+        {
+            "key": "authTests",
+            "value": {
+                "validateToken": "pm.test('Token structure is valid', () => { const jsonData = pm.response.json(); pm.expect(jsonData).to.have.property('access_token'); pm.expect(jsonData.token_type).to.equal('bearer'); const token = jsonData.access_token; pm.expect(token.split('.')).to.have.lengthOf(3); pm.environment.set('access_token', token); });",
+                "validateExpiry": "pm.test('Token expiration is 30 minutes', () => { const token = pm.response.json().access_token; const payload = JSON.parse(atob(token.split('.')[1])); const issueTime = payload.iat; const expiryTime = payload.exp; pm.expect(expiryTime - issueTime).to.equal(30 * 60); });",
+                "validateRole": "pm.test('Token contains role information', () => { const token = pm.environment.get('access_token'); const payload = JSON.parse(atob(token.split('.')[1])); pm.expect(payload).to.have.property('role'); pm.expect(['admin', 'user', 'readonly']).to.include(payload.role); });",
+                "validateUnauthorized": "pm.test('Unauthorized access rejected', () => { pm.response.to.have.status(401); const jsonData = pm.response.json(); pm.expect(jsonData.detail).to.include('Not authenticated'); });"
+            },
+            "type": "any",
+            "enabled": true
+        }
+    ]
+}
