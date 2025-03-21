@@ -17,6 +17,7 @@ services:
       - OCR_ENGINE=tesseract
       - PYTHONUNBUFFERED=1
       - LOG_LEVEL=DEBUG
+      - ENABLE_DEBUG_LOGGING=false  # Set to true to enable detailed debug logging
     volumes:
       - ./uploads:/app/uploads
       - ./app:/app/app  # Mount app directory for development

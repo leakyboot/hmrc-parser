@@ -2,10 +2,22 @@ import re
 from decimal import Decimal
 from typing import Dict, Any
 import logging
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 logger = logging.getLogger(__name__)
 
 class DataExtractor:
+    # Feature flag for detailed logging
+    ENABLE_DEBUG_LOGGING = os.getenv('ENABLE_DEBUG_LOGGING', '').lower() == 'true'
+
+    def _debug_log(self, message: str) -> None:
+        """Helper method for feature-flagged debug logging."""
+        if self.ENABLE_DEBUG_LOGGING:
+            logger.debug(message)
+
     def clean_amount(self, amount: str) -> Decimal:
         """Clean and convert amount string to Decimal."""
         if not amount:
@@ -20,7 +32,7 @@ class DataExtractor:
     def extract_data(self, text: str, document_type: str = 'P60', validate: bool = True) -> Dict[str, Any]:
         """Extract structured data from OCR text."""
         data = {}
-        logger.debug(f"Extracting data from text (length: {len(text)})")
+        self._debug_log(f"Extracting data from text (length: {len(text)})")
         
         # Common patterns
         patterns = {
@@ -58,14 +70,14 @@ class DataExtractor:
                     data[key] = self.clean_amount(value)
                 else:
                     data[key] = value
-                logger.debug(f"Found {key}: {value}")
+                self._debug_log(f"Found {key}: {value}")
             else:
-                logger.debug(f"No match found for {key}")
+                self._debug_log(f"No match found for {key}")
                 data[key] = None if key not in ['total_pay', 'total_tax'] else Decimal('0')
 
         # Handle tax year in different formats
         if not data.get('tax_year'):
-            logger.debug("Trying alternative tax year formats")
+            self._debug_log("Trying alternative tax year formats")
             # Try alternative formats
             alt_patterns = [
                 r'(?:20\d{2})[/-](?:20\d{2})',  # 2022/2023 or 2022-2023
@@ -81,7 +93,7 @@ class DataExtractor:
                     else:
                         # Single year format
                         data['tax_year'] = year_str
-                    logger.debug(f"Found tax year using alternative format: {data['tax_year']}")
+                    self._debug_log(f"Found tax year using alternative format: {data['tax_year']}")
                     break
 
         # Validation
@@ -96,7 +108,8 @@ class DataExtractor:
                                 if field not in data or not data[field]]
                 
                 if missing_fields:
-                    logger.error(f"Missing required fields: {', '.join(missing_fields)}")
-                    raise ValueError(f"Missing required fields: {', '.join(missing_fields)}")
+                    error_msg = f"Missing required fields: {', '.join(missing_fields)}"
+                    logger.error(error_msg)  # Always log errors regardless of feature flag
+                    raise ValueError(error_msg)
 
         return data
