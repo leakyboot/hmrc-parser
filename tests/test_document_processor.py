@@ -23,14 +23,14 @@ class TestDocumentProcessor:
     async def test_process_with_tesseract(self, document_processor, sample_image):
         """Test document processing with Tesseract OCR."""
         with patch('pytesseract.image_to_string', return_value='Test Document'):
-            result = await document_processor.process_document(sample_image)
+            result = await document_processor.process_document(sample_image, "png")
             assert result == 'Test Document'
 
     @pytest.mark.asyncio
     async def test_process_with_invalid_image(self, document_processor):
         """Test processing with invalid image data."""
         with pytest.raises(Exception) as exc_info:
-            await document_processor.process_document(b'invalid image data')
+            await document_processor.process_document(b'invalid image data', "png")
         assert "Error processing document" in str(exc_info.value)
 
     @pytest.mark.asyncio

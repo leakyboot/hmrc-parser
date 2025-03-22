@@ -36,7 +36,7 @@ class DataExtractor:
         
         # Common patterns
         patterns = {
-            'tax_year': r'(?:Tax Year|Year)(?: ending)?(?: 5 April)? (\d{4})',
+            'tax_year': r'(?:Tax Year|Year)(?: ending)?(?: 5 April)? (\d{4}(?:/\d{2})?)',
             'ni_number': r'(?:National Insurance Number|NI Number|NI No)[\s:]*([A-Z]{2}(?:\s*\d{2}){3}\s*[A-Z])',
             'total_pay': r'(?:Total pay(?:ment)?(?:s)?|Pay)[\s:]*[£]?(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)',
             'total_tax': r'(?:Total tax(?:es)?|Tax deducted)[\s:]*[£]?(\d{1,3}(?:,\d{3})*(?:\.\d{2})?)',

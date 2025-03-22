@@ -6,6 +6,7 @@ from typing import Generator, Dict
 import os
 import jwt
 from datetime import datetime, timedelta
+from unittest.mock import patch
 
 from app.main import app
 from app.models.database import Base
@@ -73,12 +74,12 @@ def test_document_data() -> bytes:
     import io
     
     # Create a new image with white background
-    img = Image.new('RGB', (800, 600), color='white')
+    img = Image.new('RGB', (1000, 800), color='white')
     d = ImageDraw.Draw(img)
     
     # Use a larger font for better OCR
     try:
-        font = ImageFont.truetype("Arial.ttf", 40)
+        font = ImageFont.truetype("Arial.ttf", 48)
     except:
         font = ImageFont.load_default()
     
@@ -89,16 +90,22 @@ def test_document_data() -> bytes:
         "Total Income: £45,000",
         "Tax Paid: £9,000",
         "National Insurance: £4,000",
-        "Pension: £3,000"
+        "NI Number: AB123456C"
     ]
     
     # Draw text with proper spacing
     y_position = 50
     for line in text_lines:
-        d.text((50, y_position), line, fill='black', font=font)
+        d.text((50, y_position), line, fill=(0, 0, 0), font=font)
         y_position += 60  # Increase spacing between lines
     
-    # Convert to bytes
+    # Save to BytesIO object
     img_byte_arr = io.BytesIO()
-    img.save(img_byte_arr, format='PNG', dpi=(300, 300))  # Use higher DPI for better OCR
-    return img_byte_arr.getvalue()
+    img.save(img_byte_arr, format='PNG')
+    img_byte_arr.seek(0)
+    
+    return img_byte_arr.read()
+
+@patch('app.core.security.SecurityManager.create_access_token', return_value='test_token')
+def mock_create_access_token():
+    pass

@@ -100,10 +100,12 @@ class DocumentProcessor:
             else:  # Handle image files (png, jpg, jpeg)
                 logger.debug(f"Processing {file_type} image with Tesseract")
                 try:
+                    # Load the image using PIL
                     image = Image.open(BytesIO(file_content))
                     if image.mode not in ('L', 'RGB'):
                         image = image.convert('RGB')
                     
+                    # Use Tesseract with specific configuration
                     text = pytesseract.image_to_string(
                         image,
                         config='--psm 1'  # Automatic page segmentation with OSD
