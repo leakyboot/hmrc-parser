@@ -26,18 +26,18 @@ class DocumentProcessor:
         if self.ocr_engine == "textract":
             self.textract = boto3.client('textract')
 
-    async def process_document(self, file_content: bytes, file_type: str = None) -> str:
+    async def process_document(self, file_content: bytes, file_type: str) -> str:
         """Process document using configured OCR engine."""
         if not file_type:
             raise ValueError("File type must be provided")
-
+        
         file_type = file_type.lower()
         logger.debug(f"Processing document with file type: {file_type}")
-
+        
         if file_type not in self.ALLOWED_EXTENSIONS:
             logger.error(f"Invalid file type: {file_type}. Allowed extensions: {self.ALLOWED_EXTENSIONS}")
             raise ValueError(f"Unsupported file type: {file_type}")
-
+        
         if self.ocr_engine == "textract" and os.getenv("AWS_ACCESS_KEY_ID"):
             try:
                 return await self._process_with_textract(file_content)
@@ -50,7 +50,6 @@ class DocumentProcessor:
     async def _process_with_tesseract(self, file_content: bytes, file_type: str) -> str:
         """Process document using Tesseract OCR."""
         try:
-            # Handle PDFs differently
             if file_type == 'pdf':
                 logger.debug("Processing PDF document with Tesseract")
                 try:
@@ -98,29 +97,27 @@ class DocumentProcessor:
                 
                 logger.debug(f"Successfully processed {len(text_parts)} pages")
                 return "\n\n".join(text_parts)
-            else:
-                logger.debug("Processing image document with Tesseract")
-                # Handle image files
-                image_data = BytesIO(file_content)
+            else:  # Handle image files (png, jpg, jpeg)
+                logger.debug(f"Processing {file_type} image with Tesseract")
                 try:
-                    image = Image.open(image_data)
+                    image = Image.open(BytesIO(file_content))
                     if image.mode not in ('L', 'RGB'):
                         image = image.convert('RGB')
-                except UnidentifiedImageError:
-                    logger.error(f"Could not identify image format for file type: {file_type}")
-                    raise ValueError(f"Could not identify image format for file type: {file_type}")
-
-                text = pytesseract.image_to_string(
-                    image,
-                    config='--psm 1'  # Automatic page segmentation with OSD
-                )
-                
-                if not text.strip():
-                    logger.error("No text was extracted from the image")
-                    raise ValueError("No text was extracted from the image")
-                
-                logger.debug("Successfully extracted text from image")
-                return text.strip()
+                    
+                    text = pytesseract.image_to_string(
+                        image,
+                        config='--psm 1'  # Automatic page segmentation with OSD
+                    )
+                    
+                    if text.strip():
+                        logger.debug("Successfully extracted text from image")
+                        return text.strip()
+                    else:
+                        logger.warning("No text extracted from image")
+                        raise ValueError("No text was extracted from the image")
+                except Exception as e:
+                    logger.error(f"Error processing image: {str(e)}")
+                    raise ValueError(f"Error processing image: {str(e)}")
         except Exception as e:
             logger.error(f"Error processing document with Tesseract: {str(e)}")
             raise Exception(f"Error processing document with Tesseract: {str(e)}")

@@ -23,9 +23,10 @@ class TestAPI:
     def test_upload_document_success(self, authorized_client, test_document_data):
         """Test successful document upload"""
         files = {"file": ("test.png", test_document_data, "image/png")}
-        response = authorized_client.post("/upload", files=files)
+        data = {"file_type": "png"}  # Add file type parameter
+        response = authorized_client.post("/upload", files=files, data=data)
         assert response.status_code == 200
-        assert "doc_id" in response.json()
+        assert "document_id" in response.json()
         assert response.json()["status"] == "success"
 
     def test_get_status_unauthorized(self, client):

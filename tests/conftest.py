@@ -68,21 +68,37 @@ def authorized_client(client: TestClient, token: str) -> TestClient:
 
 @pytest.fixture
 def test_document_data() -> bytes:
-    # Create a small test image with some text
-    from PIL import Image, ImageDraw
+    """Create a test image with clear text that Tesseract can process."""
+    from PIL import Image, ImageDraw, ImageFont
     import io
     
     # Create a new image with white background
-    img = Image.new('RGB', (200, 100), color='white')
+    img = Image.new('RGB', (800, 600), color='white')
     d = ImageDraw.Draw(img)
     
-    # Add some test text
-    d.text((10, 10), "Tax Year: 2024/25", fill='black')
-    d.text((10, 30), "Employer: Test Corp Ltd", fill='black')
-    d.text((10, 50), "Total Income: £45,000", fill='black')
-    d.text((10, 70), "Tax Paid: £9,000", fill='black')
+    # Use a larger font for better OCR
+    try:
+        font = ImageFont.truetype("Arial.ttf", 40)
+    except:
+        font = ImageFont.load_default()
+    
+    # Add some test text with proper spacing
+    text_lines = [
+        "Tax Year: 2024/25",
+        "Employer: Test Corp Ltd",
+        "Total Income: £45,000",
+        "Tax Paid: £9,000",
+        "National Insurance: £4,000",
+        "Pension: £3,000"
+    ]
+    
+    # Draw text with proper spacing
+    y_position = 50
+    for line in text_lines:
+        d.text((50, y_position), line, fill='black', font=font)
+        y_position += 60  # Increase spacing between lines
     
     # Convert to bytes
     img_byte_arr = io.BytesIO()
-    img.save(img_byte_arr, format='PNG')
+    img.save(img_byte_arr, format='PNG', dpi=(300, 300))  # Use higher DPI for better OCR
     return img_byte_arr.getvalue()

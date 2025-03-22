@@ -118,12 +118,14 @@ async def login(form_data: OAuth2PasswordRequestForm = Depends()) -> Token:
 )
 async def upload_document(
     file: UploadFile = File(...),
-    token: str = Depends(oauth2_scheme)
+    token: str = Depends(oauth2_scheme),
+    file_type: Optional[str] = None
 ) -> DocumentResponse:
     """
     Upload a tax document for processing.
     
     - **file**: Tax document file (PDF, PNG, JPEG)
+    - **file_type**: Optional file type override
     
     The document will be processed using the configured OCR engine (Tesseract by default).
     Data will be extracted and structured according to the document type.
@@ -134,8 +136,11 @@ async def upload_document(
     logger.debug(f"Received upload request for file: {file.filename}")
     
     # Extract and validate file type
-    file_type = file.filename.lower().split('.')[-1] if '.' in file.filename else ''
-    logger.debug(f"Extracted file type: {file_type}")
+    if file_type:
+        logger.debug(f"Using file type from form data: {file_type}")
+    else:
+        file_type = file.filename.lower().split('.')[-1] if '.' in file.filename else ''
+        logger.debug(f"Extracted file type from filename: {file_type}")
     
     if not file_type:
         logger.error("No file extension found")
