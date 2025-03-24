@@ -8,7 +8,7 @@ import io
 class TestAPI:
     def test_upload_document_unauthorized(self, client):
         """Test document upload without authentication"""
-        files = {"file": ("test.png", b"test content", "image/png")}
+        files = {"file": ("tests/test.png", b"test content", "image/png")}
         response = client.post("/upload", files=files)
         assert response.status_code == 401
         assert "Not authenticated" in response.text
@@ -22,7 +22,7 @@ class TestAPI:
 
     def test_upload_document_success(self, authorized_client, test_document_data):
         """Test successful document upload"""
-        files = {"file": ("test.png", test_document_data, "image/png")}
+        files = {"file": ("tests/test.png", test_document_data, "image/png")}
         data = {"file_type": "png"}  # Add file type parameter
         response = authorized_client.post("/upload", files=files, data=data)
         assert response.status_code == 200
